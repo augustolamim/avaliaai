@@ -37,8 +37,9 @@ class GradeController {
             const prompt = "<|system|>Based on this array of answers with scores and feedbacks" + JSON.stringify(answers) + "generate a score and feedback for this new answer:\"" + answer + "\" DO NOT send anything other then a number for the score and the feedback, dont need text like score: or this is the feedback: </s>"
 
             let i = 0
-            while (i < 5) {
+            while (i < 15) {
                 console.log("count: " + i)
+
                 const output = await replicate.run(
                     "tomasmcm/zephyr-7b-beta:961cd6665b811d0c43c0b9488b6dfa85ff5c7bfb875e93b4533e4c7f96c7c526",
                     {
