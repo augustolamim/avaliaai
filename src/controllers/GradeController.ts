@@ -11,7 +11,7 @@ const SW = require('stopword');
 
 
 const openai = new OpenAI({
-    apiKey: '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',
+    apiKey: process.env.OPENAI_SECRET_KEY,
 })
 
 const spellCorrector = new SpellCorrector();
