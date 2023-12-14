@@ -7,7 +7,9 @@ import QuestionController from "./controllers/QuestionController";
 const routes = Router();
 
 routes.use(apiAuth);
-routes.post('/api/grade/:id', GradeController.store)
+routes.post('/api/grade/chatgpt/:id', GradeController.chatgpt)
+routes.post('/api/grade/zypher/:id', GradeController.zypher)
+routes.post('/api/grade/yi/:id', GradeController.yi)
 routes.post('/api/question/create', QuestionController.store)
 routes.put('/api/question/update/:id', QuestionController.update)
 routes.get('/api/question/all', QuestionController.index)
