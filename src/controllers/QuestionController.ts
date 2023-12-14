@@ -42,7 +42,11 @@ class QuestionController {
                 .where('answer.question_id', '=', id)
                 .select(['text', 'feedback', 'score'])
                 .execute()
-
+            const logs = await db
+                .selectFrom('log')
+                .where('log.question_id', '=', id)
+                .selectAll()
+                .execute()
 
             if (!question) return response.status(400).json({ error: 'Pergunta não encontrada.' });
 
@@ -50,6 +54,7 @@ class QuestionController {
                 id: question[0].id,
                 question: question[0].question,
                 answers: answers,
+                logs: logs
             });
         } catch (error) {
             return response.status(500).json({

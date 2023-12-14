@@ -11,7 +11,7 @@ const SW = require('stopword');
 
 
 const openai = new OpenAI({
-    apiKey: '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',
+    apiKey: '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',
 })
 
 const spellCorrector = new SpellCorrector();
@@ -129,6 +129,16 @@ class GradeController {
                     const feedback = match[2];
                     const feedbackToPortuguese: any = await translatte(feedback, { to: 'pt' })
                     const returnFeedback = feedbackToPortuguese.text
+                    const newLog = await db
+                        .insertInto('log')
+                        .values({
+                            text: answer,
+                            feedback: returnFeedback,
+                            model: 'zypher',
+                            score: score,
+                            question_id: id,
+                        })
+                        .execute()
                     return response.status(201).json({
                         score, feedback: returnFeedback, grammar: grammarCheck
                     });
@@ -209,6 +219,16 @@ class GradeController {
                     const feedback = match[2];
                     const feedbackToPortuguese: any = await translatte(feedback, { to: 'pt' })
                     const returnFeedback = feedbackToPortuguese.text
+                    const newLog = await db
+                        .insertInto('log')
+                        .values({
+                            text: answer,
+                            feedback: returnFeedback,
+                            score: score,
+                            model: 'chatgpt',
+                            question_id: id,
+                        })
+                        .execute()
                     return response.status(201).json({
                         score, feedback: returnFeedback, tokenAmount: chatCompletion.usage.total_tokens, price
                     });

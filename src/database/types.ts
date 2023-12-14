@@ -3,6 +3,7 @@ import { ColumnType, Generated, Insertable, Selectable, Updateable } from 'kysel
 export interface Database {
     question: QuestionTable
     answer: AnswerTable
+    log: LogTable
 }
 
 export interface QuestionTable {
@@ -28,8 +29,19 @@ export interface AnswerTable {
     feedback: string
     score: number
     question_id: number
-    species: 'dog' | 'cat'
 }
 
 export type Answer = Selectable<AnswerTable>
 export type NewAnswer = Insertable<AnswerTable>
+
+export interface LogTable {
+    id: Generated<number>
+    text: string
+    feedback: string
+    model: string
+    score: number
+    question_id: number
+}
+
+export type Log = Selectable<LogTable>
+export type NewLog = Insertable<LogTable>
